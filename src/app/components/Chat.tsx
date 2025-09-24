@@ -464,7 +464,7 @@ export default function ChatSection() {
           }`}
         >
           {messages.length === 0 && (
-            <h1 className="text-4xl lg:text-5xl text-center mb-10 mr-10">
+            <h1 className="text-4xl lg:text-5xl text-center mb-10 mr-10 whitespace-nowrap">
               ✨ What&apos;s new, {user?.name?.split(" ")[0] ?? "User"}
             </h1>
           )}
