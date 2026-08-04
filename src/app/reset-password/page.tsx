@@ -4,10 +4,11 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
-import { supabase } from "@/app/lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 
 export default function ResetPasswordPage() {
+  const supabase = createClient();
   const router = useRouter();
   const [form, setForm] = useState({ password: "", confirmPassword: "" });
   const [showPassword, setShowPassword] = useState(false);

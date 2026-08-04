@@ -11,6 +11,7 @@
   "dependencies": {
     "@livekit/components-react": "^2.9.14",
     "@livekit/components-styles": "^1.1.6",
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.4",
     "copy-to-clipboard": "^3.3.3",
     "groq-sdk": "^0.30.0",

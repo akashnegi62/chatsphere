@@ -5,12 +5,13 @@ import { useMemo, useState } from "react";
 import { Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
-import { supabase } from "@/app/lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function AuthPage() {
+  const supabase = createClient();
   const [loading, setLoading] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);

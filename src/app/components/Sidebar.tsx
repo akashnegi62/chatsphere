@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import UserMenu from "./UserMenu";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
 interface Message {
   role: "user" | "assistant";
   content: string;
@@ -55,6 +55,7 @@ export default function Sidebar({
     { email: string; name?: string } | undefined
   >(undefined);
   const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     const getUser = async () => {
@@ -64,7 +65,6 @@ export default function Sidebar({
       } = await supabase.auth.getUser();
 
       if (error || !user) {
-        router.push("/"); // redirect if not logged in
         return;
       }
 
@@ -104,7 +104,7 @@ export default function Sidebar({
     setEditingChatId(null);
   };
 
-  const handleRenameChat = (chatId: string) => {
+  const handleRenameChat = async (chatId: string) => {
     const newTitle = editingChatTitle.trim();
     if (!newTitle) {
       setEditingChatId(null);
@@ -114,9 +114,13 @@ export default function Sidebar({
       prev.map((c) => (c.id === chatId ? { ...c, title: newTitle } : c))
     );
     setEditingChatId(null);
+
+    if (user) {
+      await supabase.from("chats").update({ title: newTitle }).eq("id", chatId);
+    }
   };
 
-  const handleDeleteChat = (chatId: string) => {
+  const handleDeleteChat = async (chatId: string) => {
     setChats((prev) => prev.filter((c) => c.id !== chatId));
     if (selectedChatId === chatId) {
       setMessages([]);
@@ -124,6 +128,10 @@ export default function Sidebar({
     }
     setPopupOpenChatId(null);
     setEditingChatId(null);
+
+    if (user) {
+      await supabase.from("chats").delete().eq("id", chatId);
+    }
   };
 
   const filteredChats = chats.filter((chat) =>

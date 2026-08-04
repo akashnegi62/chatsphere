@@ -18,7 +18,7 @@ import {
 
 import copy from "copy-to-clipboard";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/app/lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
 import { toast } from "sonner";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -116,13 +116,14 @@ function renderMessageContent(content: string) {
 }
 
 export default function ChatSection() {
+  const supabase = createClient();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const [chats, setChats] = useState<Chat[]>([]);
   const [user, setUser] = useState<
-    { email: string; name?: string } | undefined
+    { id: string; email: string; name?: string } | undefined
   >(undefined);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<{
@@ -158,6 +159,41 @@ export default function ChatSection() {
       fileName: selectedFile?.fileName,
     };
 
+    let currentChatId = selectedChatId;
+    let isNewChat = false;
+
+    // Create chat in DB if logged in and no chat selected
+    if (user && !currentChatId) {
+      const { data: newChat } = await supabase
+        .from("chats")
+        .insert({
+          user_id: user.id,
+          title: userMessage.content.slice(0, 20) || "New Chat",
+        })
+        .select()
+        .single();
+      if (newChat) {
+        currentChatId = newChat.id;
+        setSelectedChatId(currentChatId);
+        isNewChat = true;
+      }
+    } else if (!user && !currentChatId) {
+      currentChatId = Date.now().toString();
+      setSelectedChatId(currentChatId);
+      isNewChat = true;
+    }
+
+    // Insert user message to DB
+    if (user && currentChatId) {
+      await supabase.from("messages").insert({
+        chat_id: currentChatId,
+        role: userMessage.role,
+        content: userMessage.content,
+        file_url: userMessage.fileUrl,
+        file_name: userMessage.fileName,
+      });
+    }
+
     const updatedMessages: Message[] = [...messages, userMessage];
     setMessages(updatedMessages);
     setMessage("");
@@ -179,25 +215,33 @@ export default function ChatSection() {
           content: data.content,
         };
 
+        // Insert AI message to DB
+        if (user && currentChatId) {
+          await supabase.from("messages").insert({
+            chat_id: currentChatId,
+            role: assistantMessage.role,
+            content: assistantMessage.content,
+          });
+        }
+
         const newMessages: Message[] = [...updatedMessages, assistantMessage];
         setMessages(newMessages);
 
-        if (selectedChatId) {
+        if (!isNewChat && currentChatId) {
           setChats((prev) =>
             prev.map((chat) =>
-              chat.id === selectedChatId
+              chat.id === currentChatId
                 ? { ...chat, messages: newMessages }
                 : chat
             )
           );
-        } else {
-          const newChat: Chat = {
-            id: Date.now().toString(),
-            title: newMessages[0].content.slice(0, 20),
+        } else if (currentChatId) {
+          const newChatObj: Chat = {
+            id: currentChatId,
+            title: newMessages[0].content.slice(0, 20) || "New Chat",
             messages: newMessages,
           };
-          setChats((prev) => [newChat, ...prev]);
-          setSelectedChatId(newChat.id);
+          setChats((prev) => [newChatObj, ...prev]);
         }
       }
     } catch (err) {
@@ -216,25 +260,68 @@ export default function ChatSection() {
 
   // fetch current user
   useEffect(() => {
-    const getUser = async () => {
+    const getUserAndChats = async () => {
       const {
         data: { user },
         error,
       } = await supabase.auth.getUser();
 
       if (error || !user) {
-        router.push("/"); // redirect if not logged in
+        setLoading(false);
         return;
       }
 
       setUser({
+        id: user.id,
         email: user.email!,
         name: user.user_metadata.name,
       });
+
+      // Fetch chats from supabase
+      const { data: chatsData } = await supabase
+        .from("chats")
+        .select(`
+          id,
+          title,
+          messages (
+            id,
+            role,
+            content,
+            file_url,
+            file_name,
+            created_at
+          )
+        `)
+        .order("created_at", { ascending: false });
+
+      if (chatsData) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const formattedChats: Chat[] = chatsData.map((c: any) => {
+          const sortedMessages = (c.messages || []).sort(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (a: any, b: any) =>
+              new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+          );
+          return {
+            id: c.id,
+            title: c.title,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            messages: sortedMessages.map((m: any) => ({
+              id: m.id,
+              role: m.role,
+              content: m.content,
+              fileUrl: m.file_url,
+              fileName: m.file_name,
+            })),
+          };
+        });
+        setChats(formattedChats);
+      }
       setLoading(false);
     };
 
-    getUser();
+    getUserAndChats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const handlePush = () => {

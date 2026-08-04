@@ -26,7 +26,7 @@ function splitIntoChunks(text: string, maxLength = 150): string[] {
 
 export async function POST(req: NextRequest) {
   try {
-    const { text, voice = "Arista-PlayAI" } = await req.json();
+    const { text, voice = "autumn" } = await req.json();
     if (!text) {
       return new Response(JSON.stringify({ error: "No text provided" }), {
         status: 400,
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     // 🔹 Generate audio for each chunk sequentially
     for (const chunk of chunks) {
       const result = await groq.audio.speech.create({
-        model: "playai-tts",
+        model: "canopylabs/orpheus-v1-english",
         voice,
         input: chunk,
         response_format: "wav",
