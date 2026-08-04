@@ -75,6 +75,7 @@ export default function Sidebar({
     };
 
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const popupRef = useRef<HTMLDivElement | null>(null);
