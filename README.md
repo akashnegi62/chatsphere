@@ -1,177 +1,55 @@
-✨ ChatSphere – AI-Powered Chat Application
+✨ ChatSphere
 
-<p align="center">
-<img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" />
-<img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
-<img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" />
-<img src="https://img.shields.io/badge/Supabase-Database-3FCF8E?logo=supabase" />
-<img src="https://img.shields.io/badge/Groq-AI-orange" />
-<img src="https://img.shields.io/badge/LiveKit-Voice%20Technology-purple" />
-</p>
+Your AI-powered conversation companion.
 
-<p align="center">
-<strong>Your intelligent AI companion for conversations, coding, and voice interaction.</strong>
-</p>
+ChatSphere is a modern AI chat application built with Next.js, React, TypeScript, Groq, and Supabase. It provides an interactive conversational experience with AI-generated responses, voice interaction, chat history, and user authentication.
 
-<p align="center">
-<a href="https://chatsphere-user.vercel.app/">🌐 Live Demo</a> •
-<a href="https://github.com/akashnegi62/chatsphere">📂 GitHub Repository</a>
-</p>
+🌐 Live Demo: ChatSphere
 
-🚀 About ChatSphere
-
-ChatSphere is a modern AI-powered chat application designed to provide an interactive and intelligent conversational experience.
-
-Built using Next.js, React, and TypeScript, ChatSphere combines AI-powered conversations with persistent chat history, file attachments, voice interaction, and an intuitive user interface.
-
-The application integrates Groq for AI capabilities, Supabase for authentication and data persistence, and LiveKit for real-time voice functionality.
-
-Whether you want to ask questions, generate code, explore ideas, or interact using voice, ChatSphere provides a unified conversational experience.
-
-✨ Features
-
-<table>
-<tr>
-<td width="50%" valign="top">
-<h3>🤖 AI-Powered Conversations</h3>
-<p>Interact with an AI assistant and receive intelligent responses using Groq-powered AI integration.</p>
-</td>
-<td width="50%" valign="top">
-<h3>💬 Chat Management</h3>
-<p>Create new conversations, switch between chats, and access previously saved chat history.</p>
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-<h3>📎 File Attachments</h3>
-<p>Attach files and images to messages and display file previews in conversations.</p>
-</td>
-<td width="50%" valign="top">
-<h3>🎙️ Voice Interaction</h3>
-<p>Access voice interaction through the LiveKit-powered voice experience.</p>
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-<h3>🔊 Text-to-Speech</h3>
-<p>Listen to AI-generated responses through audio playback.</p>
-</td>
-<td width="50%" valign="top">
-<h3>💻 Code Highlighting</h3>
-<p>Display code blocks with syntax highlighting, line numbers, and copy functionality.</p>
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-<h3>👍 Message Feedback</h3>
-<p>Like or dislike AI-generated responses.</p>
-</td>
-<td width="50%" valign="top">
-<h3>🔐 Authentication</h3>
-<p>Integrate Supabase authentication and user-specific conversation persistence.</p>
-</td>
-</tr>
-</table>
-
+🚀 Features
+AI-Powered Conversations: Get intelligent responses powered by Groq's Llama 3.1 model.
+User Authentication: Sign up and log in using email and password.
+Social Authentication: Sign in with Google and GitHub.
+Chat History: Save and access previous conversations.
+Chat Management: Create, search, rename, and delete conversations.
+Voice Interaction: Interact with ChatSphere using your microphone.
+Text-to-Speech: Listen to AI-generated responses using Groq's speech generation.
+Speech-to-Text: Convert voice input into text for AI processing.
+Code Highlighting: Display code snippets with syntax highlighting and line numbers.
+Copy Responses: Easily copy AI-generated messages and code snippets.
+Message Feedback: Like or dislike AI responses.
+File Attachments: Select files and display attachment previews in conversations.
+Responsive UI: Enjoy a clean interface across desktop and mobile devices.
+Smooth Animations: Interactive UI animations powered by Motion.
 🛠️ Tech Stack
-Frontend
+Technology	Purpose
+Next.js 16	React framework
+React 19	UI development
+TypeScript	Type safety
+Tailwind CSS 4	Styling
+Supabase	Authentication and database
+Groq API	AI-powered responses
+Llama 3.1	Language model
+Groq Orpheus	Text-to-speech
+LiveKit	Real-time audio connectivity
+Lucide React	Icons
+Motion	UI animations
+React Syntax Highlighter	Code highlighting
+Sonner	Notifications
+📸 Application Overview
 
-<p>
-<img src="https://skillicons.dev/icons?i=nextjs,react,typescript,tailwind" />
-</p>
+ChatSphere provides a conversational interface with:
 
-Next.js 16
-React 19
-TypeScript
-Tailwind CSS 4
-Motion
-Lucide React
-Backend & Services
-
-<p>
-<img src="https://skillicons.dev/icons?i=supabase" />
-</p>
-
-Supabase – Authentication and database management
-Groq SDK – AI integration
-LiveKit – Real-time voice infrastructure
-Next.js API Routes – Server-side API endpoints
-Additional Libraries
-Sonner – Notifications
-React Syntax Highlighter – Code highlighting
-Copy to Clipboard – Copy functionality
-LiveKit Client SDK – Voice communication
-🏗️ Application Architecture
-text
-              ┌──────────────────────┐
-              │       USER           │
-              └──────────┬───────────┘
-                         │
-                         ▼
-              ┌──────────────────────┐
-              │    Next.js UI        │
-              │   React + TypeScript │
-              └──────────┬───────────┘
-                         │
-             ┌───────────┼───────────┐
-             │           │           │
-             ▼           ▼           ▼
-        ┌─────────┐ ┌──────────┐ ┌──────────┐
-        │ Groq AI │ │ Supabase │ │ LiveKit  │
-        │         │ │          │ │          │
-        │ Chat    │ │ Auth     │ │ Voice    │
-        │         │ │ Database │ │ Calls    │
-        └─────────┘ └──────────┘ └──────────┘
-
-📂 Project Structure
-text
-chatsphere/
-│
-├── public/
-│   └── Static assets and images
-│
-├── src/
-│   ├── app/
-│   │   ├── api/
-│   │   │   ├── chat/
-│   │   │   └── speak/
-│   │   │
-│   │   ├── components/
-│   │   │   ├── Chat.tsx
-│   │   │   └── Sidebar.tsx
-│   │   │
-│   │   ├── auth/
-│   │   ├── voice/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   └── globals.css
-│   │
-│   └── utils/
-│       └── Supabase client utilities
-│
-├── .gitignore
-├── eslint.config.mjs
-├── next.config.ts
-├── package.json
-├── package-lock.json
-├── postcss.config.mjs
-├── tsconfig.json
-└── README.md
-
+A sidebar for managing conversations.
+A central chat window for interacting with AI.
+A message composer with attachment selection.
+Response actions for copying, rating, and listening to messages.
+A dedicated voice-chat interface.
+Authentication screens for login and registration.
 ⚙️ Getting Started
 
 Follow these steps to run ChatSphere locally.
 
-Prerequisites
-
-Make sure you have installed:
-
-Node.js (LTS recommended)
-npm
-Git
-Supabase account
-Groq API access
-LiveKit account for voice functionality
 1. Clone the Repository
 bash
 git clone https://github.com/akashnegi62/chatsphere.git
@@ -181,113 +59,189 @@ bash
 cd chatsphere
 
 3. Install Dependencies
+
+Using npm:
+
 bash
 npm install
 
 4. Configure Environment Variables
 
-Create a .env.local file in the project root.
+Create a .env.local file in the root directory.
 
-Add the required credentials for your integrations:
+Add the following variables:
 
 env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-# Groq AI
+# Groq API
 GROQ_API_KEY=your_groq_api_key
 
-# LiveKit
-LIVEKIT_URL=your_livekit_url
-LIVEKIT_API_KEY=your_livekit_api_key
-LIVEKIT_API_SECRET=your_livekit_api_secret
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# LiveKit Configuration
+NEXT_PUBLIC_LIVEKIT_URL=your_livekit_server_url
 
 
-Note: These are illustrative configuration names. Verify the exact environment variable names against the API routes and voice implementation before running the application.
+Important: The voice-chat and authentication API routes may require additional server-side credentials. Configure those according to the environment variables referenced in the respective API routes.
 
-5. Run the Development Server
+5. Configure Supabase
+
+Create a Supabase project and configure authentication.
+
+Enable the following authentication providers if you want social login:
+
+Google
+GitHub
+
+Configure the required database tables:
+
+chats
+
+Column	Description
+id	Unique chat ID
+user_id	Associated user ID
+title	Conversation title
+created_at	Creation timestamp
+
+messages
+
+Column	Description
+id	Unique message ID
+chat_id	Associated chat ID
+role	user or assistant
+content	Message content
+file_url	Attachment reference
+file_name	Attachment name
+created_at	Creation timestamp
+
+Make sure to configure appropriate foreign keys and Row Level Security (RLS) policies so users can access only their own conversations.
+
+6. Run the Development Server
 bash
 npm run dev
 
-6. Open in Browser
 
-Visit:
+Open your browser and visit:
 
 text
 http://localhost:3000
 
 
-You're ready to explore ChatSphere!
+ChatSphere should now be running locally!
+
+🎙️ Voice Chat
+
+ChatSphere includes a dedicated voice interface.
+
+The voice interaction pipeline uses:
+
+Microphone audio recording.
+Speech-to-text processing.
+Groq-powered AI response generation.
+Text-to-speech audio generation.
+Audio playback.
+
+To access voice chat, use the microphone option in the main chat interface.
+
+Note: Microphone permissions and the required API credentials must be configured for voice functionality to work correctly.
+
+📂 Project Structure
+text
+chatsphere/
+│
+├── public/
+│   ├── signin.png
+│   └── signup.png
+│
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── chat/
+│   │   │   ├── speak/
+│   │   │   ├── token/
+│   │   │   ├── stt/
+│   │   │   ├── tts/
+│   │   │   └── groq/
+│   │   │
+│   │   ├── auth/
+│   │   ├── voice/
+│   │   ├── components/
+│   │   │   ├── Chat.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   ├── VoiceChat.tsx
+│   │   │   └── UserMenu.tsx
+│   │   │
+│   │   └── page.tsx
+│   │
+│   └── utils/
+│       └── supabase/
+│           └── client.ts
+│
+├── .env.local
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md
+
+
+The structure above highlights the main application areas; some files and folders may be omitted for brevity.
 
 📜 Available Scripts
 Command	Description
 npm run dev	Start development server
-npm run build	Build production application
+npm run build	Build the application
 npm run start	Start production server
 npm run lint	Run ESLint
-🔐 Security Best Practices
-Never expose API keys or service secrets.
-Keep private environment variables on the server.
-Use Supabase Row Level Security (RLS) to protect user data.
-Validate uploaded files and API requests.
-Never commit .env.local to GitHub.
-Use secure authentication and authorization practices.
-🚀 Deployment
+🌍 Deployment
 
-ChatSphere can be deployed using the Vercel platform.
+ChatSphere can be deployed using Vercel.
 
-Deployment Steps
-Push your code to GitHub.
+Steps:
+
+Push your project to GitHub.
 Import the repository into Vercel.
 Configure the required environment variables.
 Deploy the application.
-Verify authentication, AI responses, and voice functionality.
+Configure Supabase authentication redirect URLs for your deployed domain.
 
-<p align="center">
-<a href="https://vercel.com/new">
-<img src="https://img.shields.io/badge/Deploy%20with-Vercel-black?style=for-the-badge&logo=vercel" />
-</a>
-</p>
+Your application will be live!
 
+🔐 Security
+Keep API keys and private credentials out of source control.
+Never expose server-side secrets through NEXT_PUBLIC_ variables.
+Configure Supabase Row Level Security policies.
+Add .env.local to .gitignore.
+Validate and secure API requests before deploying to production.
 🤝 Contributing
 
-Contributions, suggestions, and improvements are welcome!
+Contributions are welcome!
 
-Fork the repository.
-Create a new feature branch.
-Make your changes.
-Commit and push your changes.
-Open a Pull Request.
+Fork this repository.
+Create a new branch:
 bash
-git checkout -b feature/new-feature
+git checkout -b feature/your-feature
 
-git add .
+Make your changes.
+Commit your changes:
+bash
+git commit -m "Add: your feature"
 
-git commit -m "Add: new feature"
+Push your branch:
+bash
+git push origin feature/your-feature
 
-git push origin feature/new-feature
-
+Open a Pull Request.
 👨‍💻 Author
 
-<p align="center">
-<strong>Akash Negi</strong>
-<br/>
-<a href="https://github.com/akashnegi62">
-<img src="https://img.shields.io/badge/GitHub-Akash%20Negi-181717?style=for-the-badge&logo=github" />
-</a>
-</p>
+Akash Negi
 
-🌐 Live Application
+GitHub: @akashnegi62
+Project: ChatSphere
+📄 License
 
-<p align="center">
-<a href="https://chatsphere-user.vercel.app/">
-<img src="https://img.shields.io/badge/Explore-ChatSphere-blue?style=for-the-badge&logo=vercel" />
-</a>
-</p>
+No license is currently specified in this repository. Please contact the repository owner for permission before redistributing or using the project under an assumed open-source license.
 
-<p align="center">
-<strong>⭐ If you like ChatSphere, don't forget to star the repository!</strong>
-<br/><br/>
-Made with ❤️ by Akash Negi
-</p>
+⭐ If you like ChatSphere, consider giving this repository a star!
+
+Built with ❤️ using Next.js, Groq, and Supabase.
